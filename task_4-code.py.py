@@ -15,14 +15,15 @@ def main_menu():
         print("####################################################")
         print("")
         print("########### Please select an option ################")
-        print("### 1. Total income by source")
-        print("### 2. Change in income sources and payment methods")
-        print("### 3. Total income by day")
+        print("### 1. View total income by source")
+        print("### 2. View total income by payment method")
+        print("### 3. View total income by day")
+        print("### 4. View trends of data")
         
 
         choice = input('Enter your number selection here: ')
 
-        arr_valid_choice = ["1","2","3"]
+        arr_valid_choice = ["1","2","3","4"]
         if choice in arr_valid_choice:
             print("Thank you")
             flag = False
@@ -59,9 +60,8 @@ def menu_option_1():
             return choice
         else:
             print("Sorry that was not a valid option")
-  
 
-# takes the total submenu input and converts the number to a string of the source name
+
 def convert_1(total_men_choice):
     
     if total_men_choice == "1":
@@ -71,12 +71,11 @@ def convert_1(total_men_choice):
     elif total_men_choice == "3":
         tot_choice= "Snack Stand"
     else:
-        tot_choice = "Pictures" 
-    
+        tot_choice = "Pictures"
+
     return tot_choice
 
-# creates a new dataframe with the selected income source then creates a total row
-# outputs the final total in a message
+
 def income_by_source(total_choice):
     df = pd.read_csv("Pandas\\task_4-data.csv")
     income = df[["Day", total_choice]]
@@ -174,6 +173,61 @@ def day_of_week(choice):
     pictures = sum(df['Pictures'][df['Day'] == choice])
     print("And", pictures, "Pictures were taken")
 
+############################################################
+#################### MENU OPTION 4 #########################
+############################################################
+
+def menu_option_4():
+    flag = True
+
+    while flag:
+
+        print("####################################################")
+        print("################ Trends in the data ################")
+        print("####################################################")
+        print("")
+        print("## Please select the trend you're interested in ####")
+        print("")
+        print("### 1. Use of cash and card over time")
+        choice = input('Enter your number selction here: ')
+        arr_valid_choice = ["1"]
+        if choice in arr_valid_choice:
+            print("Choice accepted")
+            flag = False
+            return choice
+        else:
+            print("Sorry that was not a valid option")
+
+def cash_vs_card():
+    df = pd.read_csv("Pandas\\task_4-data.csv")
+    df_cash = df.iloc[0:28,0:3]
+    df_cash_q1 = df_cash[0:7]
+    q1_sum_cash = str(sum(df_cash_q1["Tickets"]))
+    df_cash_q2 = df_cash[7:14]
+    q2_sum_cash = str(sum(df_cash_q2["Tickets"]))
+    df_cash_q3 = df_cash[14:21]
+    q3_sum_cash = str(sum(df_cash_q3["Tickets"]))
+    df_cash_q4 = df_cash[21:28]
+    q4_sum_cash = str(sum(df_cash_q4["Tickets"]))
+    
+    df_card = df.iloc[28:56, 0:3]
+    df_card_q1 = df_card[0:7]
+    q1_sum_card = str(sum(df_card_q1["Tickets"]))
+    df_card_q2 = df_card[7:14]
+    q2_sum_card = str(sum(df_card_q2["Tickets"]))
+    df_card_q3 = df_card[14:21]
+    q3_sum_card = str(sum(df_card_q3["Tickets"]))
+    df_card_q4 = df_card[21:28]#
+    q4_sum_card = str(sum(df_card_q4["Tickets"]))
+
+    print("Week     Cash        Card")
+    print("1        "+q1_sum_cash+"     "+q1_sum_card )
+    print("2        "+q2_sum_cash+"     "+q2_sum_card )
+    print("3        "+q3_sum_cash+"     "+q3_sum_card )
+    print("4        "+q4_sum_cash+"     "+q4_sum_card )
+    
+
+
 
 
 
@@ -187,6 +241,7 @@ if main_menu_choice == "1":
     total_choice = convert_1(total_men_choice)
     print(income_by_source(total_choice))
 
+
 elif main_menu_choice == "2":   # how payment types and income sources havae changed quarterly
     total_men_choice = menu_option_2() # asks which oaymetn type they want to see
     if total_men_choice == "1": # change in income sources
@@ -196,8 +251,6 @@ elif main_menu_choice == "2":   # how payment types and income sources havae cha
     elif total_men_choice == "2": # change in payment types
         type = 'Cash'
         payment_methods(type)
-
-
 
 
 elif main_menu_choice == "3":   #trends and pattern for income over different days of week
@@ -231,3 +284,7 @@ elif main_menu_choice == "3":   #trends and pattern for income over different da
         choice = 'Sunday'
         day_of_week(choice)
 
+elif main_menu_choice == "4":
+    total_men_choice = menu_option_4()
+    if total_men_choice == "1":
+        cash_vs_card()
