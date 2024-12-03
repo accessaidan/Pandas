@@ -20,14 +20,14 @@ def main_menu():
         except:
             print("Sorry, you did not enter a valid option")
             flag = True
-        else:    
+        else:   
             print('Choice accepted!')
             flag = False
 
     return choice
 
 # Submenu for totals, provides type check validation for the input
-def total_menu ():
+def total_menu():
     flag = True
 
     while flag:
@@ -65,16 +65,14 @@ def convert_total_men_coice(total_men_choice):
     elif total_men_choice == "3":
         tot_choice= "Snack Stand"
     else:
-        tot_choice = "Pictures"  
+        tot_choice = "Pictures" 
     
     return tot_choice
 
 # creates a new dataframe with the selected income source then creates a total row
 # outputs the final total in a message
 def get_total_data(total_choice):
-    
-    df = pd.read_csv("Task4a_data.csv")
-    
+    df = pd.read_csv("Pandas\\task_4-data.csv")
     income = df[["Day", total_choice]]
 
     total = income[total_choice].sum()
@@ -87,3 +85,5 @@ if main_menu_choice == "1":
     total_men_choice = total_menu()
     total_choice = convert_total_men_coice(total_men_choice)
     print(get_total_data(total_choice))
+
+    
