@@ -45,6 +45,7 @@ def menu_option_1():
         print("####################################################")
         print("")
         print("########## Please select an income source ##########")
+        print("")
         print("### 1. Tickets")   
         print("### 2. Gift Shop") 
         print("### 3. Snack Stand")  
@@ -99,9 +100,10 @@ def menu_option_2():
         print("####### Change in payment type annd sources ########")
         print("####################################################")
         print("")
-        print("####### Please select what you want to view ########")
-        print("### 1. How income sources have changed quarterly")
-        print("### 2. How payment types used have changed quarterly")
+        print("Please select the payment type you would like to view")
+        print("")
+        print("### 1. Cash payments")
+        print("### 2. Card paymets")
 
         choice = input('Enter your number selction here: ')
         arr_valid_choice = ["1","2"]
@@ -112,14 +114,18 @@ def menu_option_2():
         else:
             print("Sorry that was not a valid option")
 
-### shows the changes 
-
-def change_sources():
+def payment_methods(type):
     df = pd.read_csv("Pandas\\task_4-data.csv")
-
-
-def change_methods():
-    df = pd.read_csv("Pandas\\task_4-data.csv")
+    print("")
+    print("With", type)
+    tickets = sum(df['Tickets'][df['Pay Type'] == type])
+    print(tickets, "Tickets were sold")
+    gift_shop = sum(df['Gift Shop'][df['Pay Type'] == type])
+    print(gift_shop,"Items were bought from the gift shop")
+    snack_stand = sum(df['Snack Stand'][df['Pay Type'] == type])
+    print(snack_stand, "Items were bought at the snack stand")
+    pictures = sum(df['Pictures'][df['Pay Type'] == type])
+    print("And", pictures, "Pictures were taken")
 
 
 
@@ -137,6 +143,7 @@ def menu_option_3():
         print("####################################################")
         print("")
         print("##### Please select the day you want to view #######")
+        print("")
         print("### 1. Monday ")
         print("### 2. Tuesday")
         print("### 3. Wednesday")
@@ -154,7 +161,7 @@ def menu_option_3():
         else:
             print("Sorry that was not a valid option")
 
-def day_of_week():
+def day_of_week(choice):
     df = pd.read_csv("Pandas\\task_4-data.csv")
     print("")
     print("Across all " + choice +"s")
@@ -181,12 +188,14 @@ if main_menu_choice == "1":
     print(income_by_source(total_choice))
 
 elif main_menu_choice == "2":   # how payment types and income sources havae changed quarterly
-    total_men_choice = menu_option_2() # ask weather they want to see how income cources have changed or payment types
+    total_men_choice = menu_option_2() # asks which oaymetn type they want to see
     if total_men_choice == "1": # change in income sources
-        change_sources()
+        type = 'Card'
+        payment_methods(type)
 
     elif total_men_choice == "2": # change in payment types
-        change_methods()
+        type = 'Cash'
+        payment_methods(type)
 
 
 
@@ -196,29 +205,29 @@ elif main_menu_choice == "3":   #trends and pattern for income over different da
 
     if total_men_choice == "1": # change in income sources
         choice = 'Monday'
-        day_of_week()
+        day_of_week(choice)
 
     elif total_men_choice == "2": # tuesday
         choice = 'Tuesday'
-        day_of_week()
+        day_of_week(choice)
     
     elif total_men_choice == "3": # wednesday
         choice = 'Wednesday'
-        day_of_week()
+        day_of_week(choice)
 
     elif total_men_choice == "4": # thursday
         choice = 'Thursday'
-        day_of_week()
+        day_of_week(choice)
 
     elif total_men_choice == "5": # friday
         choice = 'Friday'
-        day_of_week()
+        day_of_week(choice)
 
     elif total_men_choice == "6": # saturday
         choice = 'Saturday'
-        day_of_week()
+        day_of_week(choice)
 
     elif total_men_choice == "7": # Sunday
         choice = 'Sunday'
-        day_of_week()
-        
+        day_of_week(choice)
+
