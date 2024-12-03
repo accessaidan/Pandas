@@ -1,6 +1,10 @@
 import pandas as pd
 
+
 # Outputs the initial menu and checks validates the input
+############################################################
+###################### MAIN MENU ###########################
+############################################################
 def main_menu():
     flag = True
 
@@ -12,21 +16,26 @@ def main_menu():
         print("")
         print("########### Please select an option ################")
         print("### 1. Total income by source")
+        print("### 2. Change in income sources and payment methods")
+        print("### 3. Total income by day")
+        
 
         choice = input('Enter your number selection here: ')
 
-        arr_valid_choice = ["1"]
+        arr_valid_choice = ["1","2","3"]
         if choice in arr_valid_choice:
             print("Thank you")
             flag = False
             return choice
         else:
             print("Sorry that was not a valid option")
-            
-    
+
+############################################################
+#################### MENU OPTION 1 #########################
+############################################################
 
 # Submenu for totals, provides type check validation for the input
-def total_menu():
+def menu_option_1():
     flag = True
 
     while flag:
@@ -52,7 +61,7 @@ def total_menu():
   
 
 # takes the total submenu input and converts the number to a string of the source name
-def convert_total_men_coice(total_men_choice):
+def convert_1(total_men_choice):
     
     if total_men_choice == "1":
         tot_choice = "Tickets"
@@ -67,7 +76,7 @@ def convert_total_men_coice(total_men_choice):
 
 # creates a new dataframe with the selected income source then creates a total row
 # outputs the final total in a message
-def get_total_data(total_choice):
+def income_by_source(total_choice):
     df = pd.read_csv("Pandas\\task_4-data.csv")
     income = df[["Day", total_choice]]
 
@@ -76,10 +85,140 @@ def get_total_data(total_choice):
     msg = "The total income from {} was: £{}".format(total_choice, total)
     return msg
 
+
+############################################################
+#################### MENU OPTION 2 #########################
+############################################################
+
+def menu_option_2():
+    flag = True
+
+    while flag:
+
+        print("####################################################")
+        print("####### Change in payment type annd sources ########")
+        print("####################################################")
+        print("")
+        print("####### Please select what you want to view ########")
+        print("### 1. How income sources have changed quarterly")
+        print("### 2. How payment types used have changed quarterly")
+
+        choice = input('Enter your number selction here: ')
+        arr_valid_choice = ["1","2"]
+        if choice in arr_valid_choice:
+            print("Choice accepted")
+            flag = False
+            return choice
+        else:
+            print("Sorry that was not a valid option")
+
+### shows the changes 
+
+def change_sources():
+    df = pd.read_csv("Pandas\\task_4-data.csv")
+
+
+def change_methods():
+    df = pd.read_csv("Pandas\\task_4-data.csv")
+
+
+
+############################################################
+#################### MENU OPTION 3 #########################
+############################################################
+
+def menu_option_3():
+    flag = True
+
+    while flag:
+
+        print("####################################################")
+        print("########### Difference in days of week #############")
+        print("####################################################")
+        print("")
+        print("##### Please select the day you want to view #######")
+        print("### 1. Monday ")
+        print("### 2. Tuesday")
+        print("### 3. Wednesday")
+        print("### 4. Thursday")
+        print("### 5. Friday")
+        print("### 6. Saturday")
+        print("### 7. Sunday")
+
+        choice = input('Enter your number selction here: ')
+        arr_valid_choice = ["1","2","3","4","5","6","7"]
+        if choice in arr_valid_choice:
+            print("Choice accepted")
+            flag = False
+            return choice
+        else:
+            print("Sorry that was not a valid option")
+
+def day_of_week():
+    df = pd.read_csv("Pandas\\task_4-data.csv")
+    print("")
+    print("Across all " + choice +"s")
+    tickets = sum(df['Tickets'][df['Day'] == choice])
+    print(tickets, "Tickets were sold")
+    gift_shop = sum(df['Gift Shop'][df['Day'] == choice])
+    print(gift_shop,"Items were bought from the gift shop")
+    snack_stand = sum(df['Snack Stand'][df['Day'] == choice])
+    print(snack_stand, "Items were bought at the snack stand")
+    pictures = sum(df['Pictures'][df['Day'] == choice])
+    print("And", pictures, "Pictures were taken")
+
+
+
+
+############################################################
+####################### MENU  ##############################
+############################################################
+
 main_menu_choice = main_menu()
 if main_menu_choice == "1":
-    total_men_choice = total_menu()
-    total_choice = convert_total_men_coice(total_men_choice)
-    print(get_total_data(total_choice))
+    total_men_choice = menu_option_1()
+    total_choice = convert_1(total_men_choice)
+    print(income_by_source(total_choice))
+
+elif main_menu_choice == "2":   # how payment types and income sources havae changed quarterly
+    total_men_choice = menu_option_2() # ask weather they want to see how income cources have changed or payment types
+    if total_men_choice == "1": # change in income sources
+        change_sources()
+
+    elif total_men_choice == "2": # change in payment types
+        change_methods()
 
 
+
+
+elif main_menu_choice == "3":   #trends and pattern for income over different days of week
+    total_men_choice = menu_option_3() # asks weather they want to see total for each day
+
+    if total_men_choice == "1": # change in income sources
+        choice = 'Monday'
+        day_of_week()
+
+    elif total_men_choice == "2": # tuesday
+        choice = 'Tuesday'
+        day_of_week()
+    
+    elif total_men_choice == "3": # wednesday
+        choice = 'Wednesday'
+        day_of_week()
+
+    elif total_men_choice == "4": # thursday
+        choice = 'Thursday'
+        day_of_week()
+
+    elif total_men_choice == "5": # friday
+        choice = 'Friday'
+        day_of_week()
+
+    elif total_men_choice == "6": # saturday
+        choice = 'Saturday'
+        day_of_week()
+
+    elif total_men_choice == "7": # Sunday
+        choice = 'Sunday'
+        day_of_week()
+        
