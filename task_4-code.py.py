@@ -15,16 +15,15 @@ def main_menu():
 
         choice = input('Enter your number selection here: ')
 
-        try:
-            int(choice)
-        except:
-            print("Sorry, you did not enter a valid option")
-            flag = True
-        else:   
-            print('Choice accepted!')
+        arr_valid_choice = ["1"]
+        if choice in arr_valid_choice:
+            print("Thank you")
             flag = False
-
-    return choice
+            return choice
+        else:
+            print("Sorry that was not a valid option")
+            
+    
 
 # Submenu for totals, provides type check validation for the input
 def total_menu():
@@ -43,17 +42,14 @@ def total_menu():
         print("### 4. Pictures")
 
         choice = input('Enter your number selction here: ')
-
-        try:
-            int(choice)
-        except:
-            print("Sorry, you did not enter a valid option")
-            flag = True
-        else:    
-            print('Choice accepted!')
+        arr_valid_choice = ["1","2","3","4"]
+        if choice in arr_valid_choice:
+            print("Choice accepted")
             flag = False
-
-    return choice   
+            return choice
+        else:
+            print("Sorry that was not a valid option")
+  
 
 # takes the total submenu input and converts the number to a string of the source name
 def convert_total_men_coice(total_men_choice):
@@ -86,4 +82,4 @@ if main_menu_choice == "1":
     total_choice = convert_total_men_coice(total_men_choice)
     print(get_total_data(total_choice))
 
-    
+
